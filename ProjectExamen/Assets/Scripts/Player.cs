@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
     private Rigidbody2D player;
 
     float horizontal;
-    public float speed = 50f;
+    public float speed;
     public float maxSpeed = 3;
     public float jumpPower = 150f;
     public bool grounded;
@@ -25,10 +25,12 @@ public class Player : MonoBehaviour
     {
 
 
-        horizontal = Input.GetAxis("Horizontal");
+        horizontal = Input.GetAxisRaw("Horizontal");
 
         //Move player
         player.AddForce((Vector2.right * speed) * horizontal);
+
+
 
         //Limiting the speed of the player
         if (player.velocity.x > maxSpeed)
@@ -41,15 +43,28 @@ public class Player : MonoBehaviour
             player.velocity = new Vector2(-maxSpeed, player.velocity.y);
         }
 
-
+        if (player.velocity.magnitude < .01)
+        {
+            player.velocity = Vector3.zero;
+        }
     }
 
     void Update()
     {
-        if (Input.GetButtonDown("Jump") && grounded == true)
+        if (Input.GetButtonDown("Jump"))
         {
-            player.AddForce(Vector2.up * jumpPower);
+            if (grounded)
+            {
+                player.AddForce(Vector2.up * jumpPower);
+                doubleJump = true;
+            }
+            else if (doubleJump)
+            {
+                player.AddForce(Vector2.up * jumpPower);
+                doubleJump = false;
+            }
         }
+
     }
 
 

@@ -14,6 +14,7 @@ public class GroundCheck : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D collision)
     {
         player.grounded = true;
+        player.doubleJump = true;
     }
 
     private void OnTriggerExit2D(Collider2D collision)
