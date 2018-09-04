@@ -61,10 +61,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\PausedMenuController.cs" />
     <Compile Include="Assets\Scripts\Baby.cs" />
     <Compile Include="Assets\Scripts\Carrot_Script.cs" />
     <Compile Include="Assets\Scripts\GameManager_Script.cs" />
     <Compile Include="Assets\Scripts\GroundCheck.cs" />
+    <Compile Include="Assets\Scripts\MenuBtnNav.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>C:/Users/Administrator/Desktop/ProjectExamen/ProjectExamen/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>

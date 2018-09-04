@@ -8,8 +8,10 @@ public class GameManager_Script : MonoBehaviour
     public static GameManager_Script instance;
 
     public Player player;
+    public GameObject menu;
     public int babyCount;
     public int babyCountTaken;
+    public bool paused = false;
 
     private void Awake()
     {
@@ -28,6 +30,22 @@ public class GameManager_Script : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R))
         {
             SceneManager.LoadScene("_Scene_Test");
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (!paused)
+            {
+                menu.SetActive(true);
+                paused = true;
+                Time.timeScale = 0;
+            }
+            else
+            {
+                menu.SetActive(false);
+                paused = false;
+                Time.timeScale = 1;
+            }
         }
     }
 }
