@@ -19,13 +19,13 @@ public class PausedMenuBtnNav : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        //Om man trycker w elr up
         if (Input.GetKeyDown(KeyCode.W))
         {
             if (index > 0)
             {
                 index--;
-                Vector2 position = transform.position;
+                Vector2 position = transform.position; //nuvarande pos
                 position.y += yOffset;
                 transform.position = position;
             }

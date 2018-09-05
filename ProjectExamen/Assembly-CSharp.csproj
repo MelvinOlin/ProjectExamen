@@ -61,6 +61,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\CameraFollow.cs" />
     <Compile Include="Assets\Scripts\Baby.cs" />
     <Compile Include="Assets\Scripts\Carrot_Script.cs" />
     <Compile Include="Assets\Scripts\GameManager_Script.cs" />
