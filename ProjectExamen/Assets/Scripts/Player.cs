@@ -64,8 +64,24 @@ public class Player : MonoBehaviour
                 doubleJump = false;
             }
         }
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            horizontal = Input.GetAxisRaw("Horizontal");
+            horizontal = horizontal * 2;
+            var localVelocity = transform.InverseTransformDirection(player.velocity);
+            transform.position = new Vector2(transform.position.x + horizontal, transform.position.y);
+
+            //StartCoroutine(Blink());
+        }
 
     }
+
+    //IEnumerator Blink()
+    //{
+    //    speed = speed * 40;
+    //    yield return new WaitForSeconds(0.01f);
+    //    speed = speed / 40;
+    //}
 
 
 }
