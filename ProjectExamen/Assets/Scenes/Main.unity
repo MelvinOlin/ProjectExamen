@@ -201,7 +201,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   index: 0
-  totalLevels: 3
+  totalOptions: 3
   yOffset: 0.705
 --- !u!1 &443551999
 GameObject:
@@ -295,7 +295,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &994811962
 MonoBehaviour:
   m_ObjectHideFlags: 0
