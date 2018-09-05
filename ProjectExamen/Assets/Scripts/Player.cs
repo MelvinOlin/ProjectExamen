@@ -5,45 +5,69 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
 
-    private Rigidbody2D player;
-    private float horizontal;
+    public LayerMask wallLayerMask;
+    public Transform wallCheckPoint;
+    private Rigidbody2D rb2d;
 
+    //Stats
+    private float horizontal;
+    private float jumpTimeCounter;
+    private float scaleX;
+    private float scaleY;
     public float speed;
     public float maxSpeed = 3;
-    public float jumpPower = 150f;
+    public float jumpPower;
+    public float jumpTime;
+
+    //Bool
+    private bool isJumping;
     public bool grounded;
     public bool doubleJump;
-    public float decayRate;
+    public bool wallSliding;
+    public bool wallCheck;
+    public bool facingRight = true;
 
     // Use this for initialization
     void Start()
     {
-        player = GetComponent<Rigidbody2D>();
+        rb2d = GetComponent<Rigidbody2D>();
+        scaleX = transform.localScale.x;
+        scaleY = transform.localScale.y;
     }
 
 
     void FixedUpdate()
     {
-        horizontal = Input.GetAxisRaw("Horizontal");
-
         //Move player
-        player.AddForce((Vector2.right * speed) * horizontal);
+        horizontal = Input.GetAxisRaw("Horizontal");
+        rb2d.AddForce((Vector2.right * speed) * horizontal);
+        if (horizontal < -0.1f)
+        {
+            transform.localScale = new Vector3(-scaleX, scaleY, 1);
+            facingRight = false;
+        }
+        if (horizontal > 0.1f)
+        {
+            transform.localScale = new Vector3(scaleX, scaleY, 1);
+            facingRight = true;
+        }
+
 
         #region Limiting Speed
         //Limiting the speed of the player
-        if (player.velocity.x > maxSpeed)
+        if (rb2d.velocity.x > maxSpeed)
         {
-            player.velocity = new Vector2(maxSpeed, player.velocity.y);
+            rb2d.velocity = new Vector2(maxSpeed, rb2d.velocity.y);
         }
 
-        if (player.velocity.x < -maxSpeed)
+        if (rb2d.velocity.x < -maxSpeed)
         {
-            player.velocity = new Vector2(-maxSpeed, player.velocity.y);
+            rb2d.velocity = new Vector2(-maxSpeed, rb2d.velocity.y);
         }
 
-        if (player.velocity.magnitude < .01)
+        if (rb2d.velocity.magnitude < .01)
         {
-            player.velocity = Vector3.zero;
+            rb2d.velocity = Vector3.zero;
         }
         #endregion
     }
@@ -51,19 +75,27 @@ public class Player : MonoBehaviour
     void Update()
     {
         #region Jump
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Jump") && grounded || wallSliding)
         {
-            if (grounded)
+            isJumping = true;
+            jumpTimeCounter = jumpTime;
+            rb2d.velocity = Vector2.up * jumpPower;
+        }
+        if (Input.GetButton("Jump"))
+        {
+            if (jumpTimeCounter > 0)
             {
-                player.AddForce(Vector2.up * jumpPower);
-                doubleJump = true;
+                rb2d.velocity = Vector2.up * jumpPower;
+                jumpTimeCounter -= Time.deltaTime;
             }
-            else if (doubleJump)
+            else
             {
-                player.AddForce(Vector2.up * jumpPower);
-                doubleJump = false;
+                isJumping = false;
             }
-
+        }
+        if (Input.GetButtonUp("Jump"))
+        {
+            isJumping = false;
         }
 
         #endregion
@@ -73,13 +105,69 @@ public class Player : MonoBehaviour
             StartCoroutine(Blink());
         }
         #endregion
+        #region WallSlide
+
+        if (!grounded)
+        {
+            wallCheck = Physics2D.OverlapCircle(wallCheckPoint.position, 0.1f, wallLayerMask);
+            if (facingRight && Input.GetAxis("Horizontal") > 0.1f || !facingRight && Input.GetAxis("Horizontal") < 0.1f) 
+            {
+                if (wallCheck)
+                {
+                    HandleWallSliding();
+                }
+            }
+        }
+
+        if (!wallCheck || grounded)
+        {
+            wallSliding = false;
+        }
+
+        #endregion
+
+    }
+
+    void HandleWallSliding()
+    {
+        rb2d.velocity = new Vector2(rb2d.velocity.x, -0.7f);
+        wallSliding = true;
+        //if (Input.GetButtonDown("Jump"))
+        //{
+        //    if (facingRight)
+        //    {
+        //        //rb2d.AddForce(new Vector2(-1000, 20) * jumpPower);
+        //        rb2d.velocity = new Vector2(-2, 5) * jumpPower;
+        //    }
+        //    else
+        //    {
+        //        //rb2d.AddForce(new Vector2(1000, 20) * jumpPower);
+        //        rb2d.velocity = new Vector2(2, 5) * jumpPower;
+
+
+        //    }
+        //}
     }
 
     IEnumerator Blink()
     {
+        rb2d.gravityScale = 0;
         speed = speed * 8;
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.05f);
+        rb2d.gravityScale = 4;
         speed = speed / 8;
     }
 
 }
+
+
+//if (grounded)
+//{
+//    player.AddForce(Vector2.up * jumpPower);
+//    doubleJump = true;
+//}
+//else if (doubleJump)
+//{
+//    player.AddForce(Vector2.up * jumpPower);
+//    doubleJump = false;
+//}
