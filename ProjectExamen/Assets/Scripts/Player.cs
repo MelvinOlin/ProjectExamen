@@ -6,13 +6,14 @@ public class Player : MonoBehaviour
 {
 
     private Rigidbody2D player;
+    private float horizontal;
 
-    float horizontal;
     public float speed;
     public float maxSpeed = 3;
     public float jumpPower = 150f;
     public bool grounded;
     public bool doubleJump;
+    public float decayRate;
 
     // Use this for initialization
     void Start()
@@ -23,15 +24,12 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
-
-
         horizontal = Input.GetAxisRaw("Horizontal");
 
         //Move player
         player.AddForce((Vector2.right * speed) * horizontal);
 
-
-
+        #region Limiting Speed
         //Limiting the speed of the player
         if (player.velocity.x > maxSpeed)
         {
@@ -47,10 +45,12 @@ public class Player : MonoBehaviour
         {
             player.velocity = Vector3.zero;
         }
+        #endregion
     }
 
     void Update()
     {
+        #region Jump
         if (Input.GetButtonDown("Jump"))
         {
             if (grounded)
@@ -63,25 +63,23 @@ public class Player : MonoBehaviour
                 player.AddForce(Vector2.up * jumpPower);
                 doubleJump = false;
             }
+
         }
+
+        #endregion
+        #region Boost
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
-            horizontal = Input.GetAxisRaw("Horizontal");
-            horizontal = horizontal * 2;
-            var localVelocity = transform.InverseTransformDirection(player.velocity);
-            transform.position = new Vector2(transform.position.x + horizontal, transform.position.y);
-
-            //StartCoroutine(Blink());
+            StartCoroutine(Blink());
         }
-
+        #endregion
     }
 
-    //IEnumerator Blink()
-    //{
-    //    speed = speed * 40;
-    //    yield return new WaitForSeconds(0.01f);
-    //    speed = speed / 40;
-    //}
-
+    IEnumerator Blink()
+    {
+        speed = speed * 8;
+        yield return new WaitForSeconds(0.1f);
+        speed = speed / 8;
+    }
 
 }
