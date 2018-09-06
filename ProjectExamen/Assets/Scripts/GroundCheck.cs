@@ -13,6 +13,10 @@ public class GroundCheck : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        player.GetCurrentAxis();
+        player.wallJump = false;
+        player.movedInAir = false;
+        player.directionAxis = 0;
         player.grounded = true;
         player.doubleJump = true;
     }

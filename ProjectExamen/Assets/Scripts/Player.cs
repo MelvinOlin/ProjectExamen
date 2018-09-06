@@ -18,6 +18,8 @@ public class Player : MonoBehaviour
     public float maxSpeed = 3;
     public float jumpPower;
     public float jumpTime;
+    public float directionAxis;
+    public float currentAxis;
 
     //Bool
     private bool isJumping;
@@ -27,6 +29,7 @@ public class Player : MonoBehaviour
     public bool wallCheck;
     public bool facingRight = true;
     public bool wallJump;
+    public bool movedInAir = false;
 
     // Use this for initialization
     void Start()
@@ -40,21 +43,45 @@ public class Player : MonoBehaviour
     void FixedUpdate()
     {
         #region Move Player
-        if (!wallJump)
+
+        horizontal = Input.GetAxisRaw("Horizontal");
+        currentAxis = horizontal;
+        if (movedInAir)
         {
-            horizontal = Input.GetAxisRaw("Horizontal");
-            rb2d.AddForce((Vector2.right * speed) * horizontal);
-            if (horizontal < -0.1f)
+            directionAxis = currentAxis * -1;
+        }
+        if (!grounded)
+        {
+            if (directionAxis == horizontal)
             {
-                transform.localScale = new Vector3(-scaleX, scaleY, 1);
-                facingRight = false;
+                rb2d.AddForce((Vector2.right * speed) * horizontal, ForceMode2D.Force);
             }
-            if (horizontal > 0.1f)
+            else
             {
-                transform.localScale = new Vector3(scaleX, scaleY, 1);
-                facingRight = true;
+                rb2d.AddForce((Vector2.right * speed / 5) * horizontal, ForceMode2D.Force);
+                movedInAir = true;
             }
         }
+        else
+        {
+            rb2d.AddForce((Vector2.right * speed) * horizontal, ForceMode2D.Force);
+
+        }
+
+
+        //Flips Player
+        if (horizontal < -0.1f)
+        {
+            transform.localScale = new Vector3(-scaleX, scaleY, 1);
+            facingRight = false;
+        }
+        if (horizontal > 0.1f)
+        {
+            transform.localScale = new Vector3(scaleX, scaleY, 1);
+            facingRight = true;
+        }
+
+
         #endregion
         #region Limiting Speed
         //Limiting the speed of the player
@@ -86,21 +113,31 @@ public class Player : MonoBehaviour
         #region Jump
         if (Input.GetButtonDown("Jump") && grounded)
         {
+
+            GetCurrentAxis();
+
             isJumping = true;
             jumpTimeCounter = jumpTime;
             rb2d.velocity = Vector2.up * jumpPower;
         }
 
-        if (Input.GetButtonDown("Jump") && wallSliding)
+        else if (Input.GetButtonDown("Jump") && wallSliding)
         {
+
+            wallJump = true;
             Debug.Log("Wall Jump");
             isJumping = true;
-            rb2d.AddForce(Vector2.right * jumpPower, ForceMode2D.Impulse); 
+            WallJump();
             jumpTimeCounter = jumpTime;
+            GetCurrentAxis();
         }
 
-        if (Input.GetButton("Jump"))
+        else if (Input.GetButton("Jump"))
         {
+            if (grounded)
+            {
+                GetCurrentAxis();
+            }
             if (jumpTimeCounter > 0)
             {
                 rb2d.velocity = Vector2.up * jumpPower;
@@ -131,7 +168,7 @@ public class Player : MonoBehaviour
         if (!grounded)
         {
             wallCheck = Physics2D.OverlapCircle(wallCheckPoint.position, 0.1f, wallLayerMask);
-            if (wallCheck)
+            if (wallCheck && horizontal != 0)
             {
                 wallSliding = true;
                 HandleWallSliding();
@@ -145,6 +182,11 @@ public class Player : MonoBehaviour
 
         #endregion
 
+    }
+
+    void WallJump()
+    {
+        rb2d.AddForce(new Vector2(jumpPower, jumpPower));
     }
 
     void HandleWallSliding()
@@ -161,11 +203,25 @@ public class Player : MonoBehaviour
         speed = speed / 6;
     }
 
-    IEnumerator WallJump()
+    public void GetCurrentAxis()
     {
-        wallJump = true;
-        yield return new WaitForSeconds(0.5f);
-        wallJump = false;
+        float returnValue = Input.GetAxis("Horizontal");
+        if (returnValue < 0)
+        {
+            returnValue = -1;
+        }
+        if (returnValue > 0)
+        {
+            returnValue = 1;
+        }
+        directionAxis = returnValue;
     }
+
+    //IEnumerator WallJump()
+    //{
+    //    wallJump = true;
+    //    yield return new WaitForSeconds(0.5f);
+    //    wallJump = false;
+    //}
 
 }
