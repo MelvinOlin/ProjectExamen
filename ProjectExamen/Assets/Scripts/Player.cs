@@ -46,11 +46,32 @@ public class Player : MonoBehaviour
 
         horizontal = Input.GetAxisRaw("Horizontal");
         currentAxis = horizontal;
-        if (movedInAir)
+        if (movedInAir && !wallJump)
         {
             directionAxis = currentAxis * -1;
         }
-        if (!grounded)
+        if (wallJump)
+        {
+            if (!grounded)
+            {
+                if (directionAxis != horizontal)
+                {
+                    rb2d.AddForce((Vector2.right * speed) * horizontal, ForceMode2D.Force);
+                }
+                else
+                {
+                    rb2d.AddForce((Vector2.right * speed / 5) * horizontal, ForceMode2D.Force);
+                    movedInAir = true;
+                }
+            }
+            else
+            {
+                rb2d.AddForce((Vector2.right * speed) * horizontal, ForceMode2D.Force);
+
+            }
+        }
+
+        else if (!grounded)
         {
             if (directionAxis == horizontal)
             {
@@ -113,9 +134,7 @@ public class Player : MonoBehaviour
         #region Jump
         if (Input.GetButtonDown("Jump") && grounded)
         {
-
             GetCurrentAxis();
-
             isJumping = true;
             jumpTimeCounter = jumpTime;
             rb2d.velocity = Vector2.up * jumpPower;
@@ -123,20 +142,19 @@ public class Player : MonoBehaviour
 
         else if (Input.GetButtonDown("Jump") && wallSliding)
         {
-
+            GetCurrentAxis();
             wallJump = true;
             Debug.Log("Wall Jump");
             isJumping = true;
             WallJump();
             jumpTimeCounter = jumpTime;
-            GetCurrentAxis();
         }
 
         else if (Input.GetButton("Jump"))
         {
             if (grounded)
             {
-                GetCurrentAxis();
+                //GetCurrentAxis();
             }
             if (jumpTimeCounter > 0)
             {
@@ -153,9 +171,6 @@ public class Player : MonoBehaviour
             rb2d.gravityScale = 6;
             isJumping = false;
         }
-
-
-
         #endregion
         #region Boost
         if (Input.GetKeyDown(KeyCode.LeftShift))
@@ -216,12 +231,4 @@ public class Player : MonoBehaviour
         }
         directionAxis = returnValue;
     }
-
-    //IEnumerator WallJump()
-    //{
-    //    wallJump = true;
-    //    yield return new WaitForSeconds(0.5f);
-    //    wallJump = false;
-    //}
-
 }
