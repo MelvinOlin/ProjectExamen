@@ -32,9 +32,9 @@ public class Carrot_Script : MonoBehaviour
     {
 
 
-        player.speed = player.speed * 2;
+        player.speed = player.speed * 1.2f;
         yield return new WaitForSeconds(5);
-        player.speed = player.speed / 2;
+        player.speed = player.speed / 1.2f;
         Destroy(gameObject);
 
 
