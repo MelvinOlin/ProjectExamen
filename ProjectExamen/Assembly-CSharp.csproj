@@ -72,6 +72,7 @@
     <Compile Include="Assets\Scripts\PausedMenuBtnNav.cs" />
     <Compile Include="Assets\Scripts\PausedMenuController.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
+    <Compile Include="Assets\Scripts\Player_V2.cs" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>C:/Users/Administrator/Desktop/ProjectExamen/ProjectExamen/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>
