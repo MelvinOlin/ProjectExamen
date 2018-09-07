@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     public LayerMask wallLayerMask;
     public Transform wallCheckPoint;
     internal Rigidbody2D rb2d;
+    private Animator animator;
 
     //Stats
     private float horizontal;
@@ -18,20 +19,24 @@ public class Player : MonoBehaviour
     public float maxSpeed = 3;
     public float jumpPower;
     public float jumpTime;
+    public float directionAxis;
+    public float currentAxis;
 
     //Bool
-    private bool isJumping;
+    public bool isJumping;
     public bool grounded;
     public bool doubleJump;
     public bool wallSliding;
     public bool wallCheck;
     public bool facingRight = true;
     public bool wallJump;
+    public bool movedInAir = false;
 
     // Use this for initialization
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
+        animator = gameObject.GetComponent<Animator>();
         scaleX = transform.localScale.x;
         scaleY = transform.localScale.y;
     }
@@ -40,21 +45,46 @@ public class Player : MonoBehaviour
     void FixedUpdate()
     {
         #region Move Player
-        if (!wallJump)
+
+        horizontal = Input.GetAxisRaw("Horizontal");
+        currentAxis = horizontal;
+        if (movedInAir)
         {
-            horizontal = Input.GetAxisRaw("Horizontal");
-            rb2d.AddForce((Vector2.right * speed) * horizontal);
-            if (horizontal < -0.1f)
+            directionAxis = currentAxis * -1;
+        }
+        
+        if (!grounded)
+        {
+            if (directionAxis == horizontal)
             {
-                transform.localScale = new Vector3(-scaleX, scaleY, 1);
-                facingRight = false;
+                rb2d.AddForce((Vector2.right * speed) * horizontal, ForceMode2D.Force);
             }
-            if (horizontal > 0.1f)
+            else
             {
-                transform.localScale = new Vector3(scaleX, scaleY, 1);
-                facingRight = true;
+                rb2d.AddForce((Vector2.right * speed / 5) * horizontal, ForceMode2D.Force);
+                movedInAir = true;
             }
         }
+        else
+        {
+            rb2d.AddForce((Vector2.right * speed) * horizontal, ForceMode2D.Force);
+
+        }
+
+
+        //Flips Player
+        if (horizontal < -0.1f)
+        {
+            transform.localScale = new Vector3(-scaleX, scaleY, 1);
+            facingRight = false;
+        }
+        if (horizontal > 0.1f)
+        {
+            transform.localScale = new Vector3(scaleX, scaleY, 1);
+            facingRight = true;
+        }
+
+
         #endregion
         #region Limiting Speed
         //Limiting the speed of the player
@@ -77,6 +107,11 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        animator.SetBool("Grounded", grounded);
+        animator.SetFloat("Speed", Mathf.Abs(Input.GetAxis("Horizontal")));
+        animator.SetBool("WallSliding", wallSliding);
+
+
         //Sets gravity to standard
         if (grounded || wallSliding)
         {
@@ -86,20 +121,24 @@ public class Player : MonoBehaviour
         #region Jump
         if (Input.GetButtonDown("Jump") && grounded)
         {
+            GetCurrentAxis();
             isJumping = true;
             jumpTimeCounter = jumpTime;
             rb2d.velocity = Vector2.up * jumpPower;
         }
 
-        if (Input.GetButtonDown("Jump") && wallSliding)
+        else if (Input.GetButtonDown("Jump") && wallSliding)
         {
             Debug.Log("Wall Jump");
+
+            wallJump = true;
             isJumping = true;
-            rb2d.AddForce(Vector2.right * jumpPower, ForceMode2D.Impulse); 
+            GetCurrentAxis();
+            WallJump();
             jumpTimeCounter = jumpTime;
         }
 
-        if (Input.GetButton("Jump"))
+        else if (Input.GetButton("Jump"))
         {
             if (jumpTimeCounter > 0)
             {
@@ -116,9 +155,6 @@ public class Player : MonoBehaviour
             rb2d.gravityScale = 6;
             isJumping = false;
         }
-
-
-
         #endregion
         #region Boost
         if (Input.GetKeyDown(KeyCode.LeftShift))
@@ -131,7 +167,7 @@ public class Player : MonoBehaviour
         if (!grounded)
         {
             wallCheck = Physics2D.OverlapCircle(wallCheckPoint.position, 0.1f, wallLayerMask);
-            if (wallCheck)
+            if (wallCheck && horizontal != 0)
             {
                 wallSliding = true;
                 HandleWallSliding();
@@ -147,6 +183,13 @@ public class Player : MonoBehaviour
 
     }
 
+    void WallJump()
+    {
+        rb2d.velocity = Vector2.up * jumpPower;
+
+        //rb2d.AddForce(new Vector2(jumpPower, jumpPower));
+    }
+
     void HandleWallSliding()
     {
         rb2d.velocity = new Vector2(rb2d.velocity.x, -1f);
@@ -154,18 +197,40 @@ public class Player : MonoBehaviour
 
     IEnumerator Blink()
     {
+        if (movedInAir)
+        {
+            rb2d.gravityScale = 0;
+            speed = speed * 35;
+            yield return new WaitForSeconds(0.06f);
+            rb2d.gravityScale = 4;
+            speed = speed / 35;
+        }
+
+        else
+        {
         rb2d.gravityScale = 0;
         speed = speed * 6;
         yield return new WaitForSeconds(0.06f);
         rb2d.gravityScale = 4;
         speed = speed / 6;
+        }
     }
 
-    IEnumerator WallJump()
+    public void GetCurrentAxis()
     {
-        wallJump = true;
-        yield return new WaitForSeconds(0.5f);
-        wallJump = false;
+        float returnValue = Input.GetAxis("Horizontal");
+        if (returnValue < 0)
+        {
+            returnValue = -1;
+        }
+        if (returnValue > 0)
+        {
+            returnValue = 1;
+        }
+        if (wallJump)
+        {
+            //returnValue = returnValue * -1;
+        }
+        directionAxis = returnValue;
     }
-
 }

@@ -40,6 +40,8 @@ GameObject:
   - component: {fileID: 61777173848717604}
   - component: {fileID: 50523857294759058}
   - component: {fileID: 114850204373179988}
+  - component: {fileID: 61743714205192778}
+  - component: {fileID: 95869045750472404}
   m_Layer: 0
   m_Name: Player_Bunny
   m_TagString: Player
@@ -69,8 +71,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1299946650137684}
   m_LocalRotation: {x: 0, y: 0.008726558, z: 0, w: 0.999962}
-  m_LocalPosition: {x: -3.766193, y: -1.5606776, z: 0.0005}
-  m_LocalScale: {x: 0.7017685, y: 1.6006, z: 1}
+  m_LocalPosition: {x: -3.377, y: -1.18, z: 0.0005}
+  m_LocalScale: {x: 1.488451, y: 1.6006, z: 1}
   m_Children:
   - {fileID: 4260152899339942}
   - {fileID: 4042338219623556}
@@ -84,7 +86,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1548949588815482}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.278, y: -0.027, z: -0}
+  m_LocalPosition: {x: 0.4, y: -0.027, z: 0.004}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4037082565244992}
@@ -97,7 +99,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1296662542538238}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.191, y: 0.003, z: 0}
+  m_LocalPosition: {x: -0.211, y: -0.303, z: -0.001}
   m_LocalScale: {x: 0.12692517, y: 0.33590364, z: 1}
   m_Children: []
   m_Father: {fileID: 4037082565244992}
@@ -135,7 +137,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 1.4696368, y: -0.43160653}
+  m_Offset: {x: 1.3689121, y: -0.42616957}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -146,7 +148,32 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.0086157, y: 0.1701771}
+  m_Size: {x: 2.6870263, y: 0.15930319}
+  m_EdgeRadius: 0
+--- !u!61 &61743714205192778
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1299946650137684}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.041994423, y: -0.24614218}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.5, y: 1.8285714}
+    newSize: {x: 0.5, y: 0.33333334}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.3661533, y: 0.3815304}
   m_EdgeRadius: 0
 --- !u!61 &61777173848717604
 BoxCollider2D:
@@ -160,19 +187,37 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.031519115, y: 0.27023512}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.5, y: 0.33333334}
+    oldSize: {x: 1.5, y: 1.8285714}
     newSize: {x: 0.5, y: 0.33333334}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.5, y: 0.33333334}
+  m_Size: {x: 0.53203535, y: 0.63360965}
   m_EdgeRadius: 0
+--- !u!95 &95869045750472404
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1299946650137684}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 801bddcf635209646aa782d87cc8bb56, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &114199133628235436
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -203,11 +248,16 @@ MonoBehaviour:
   maxSpeed: 3
   jumpPower: 10
   jumpTime: 0.2
+  directionAxis: 0
+  currentAxis: 0
+  isJumping: 0
   grounded: 0
   doubleJump: 0
   wallSliding: 0
   wallCheck: 0
   facingRight: 0
+  wallJump: 0
+  movedInAir: 0
 --- !u!212 &212980163835563826
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -243,7 +293,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 6833bd1f1e8fa9c4aa4623e05f021255, type: 3}
+  m_Sprite: {fileID: 21300000, guid: db13b27b11b82014d9c1ef879896f412, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
