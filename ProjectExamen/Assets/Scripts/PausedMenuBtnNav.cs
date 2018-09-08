@@ -47,10 +47,13 @@ public class PausedMenuBtnNav : MonoBehaviour
             switch (index)
             {
                 case 0:
-                    Restart();
+                    Time.timeScale = 1;
                     GameManager_Script.instance.menu.SetActive(false);
                     break;
                 case 1:
+                    Restart();
+                    break;
+                case 2:
                     SceneManager.LoadScene("Scene_MainMenu");
                     Time.timeScale = 1;
                     break;
