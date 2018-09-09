@@ -50,10 +50,22 @@ public class LevelSelectBtnNav : MonoBehaviour {
 					SceneManager.LoadScene("Level_One");
 					break;
                 case 1:
+                    if (GameController.gameController.level_Two_Unlocked)
+                    {
+                        SceneManager.LoadScene("Level_Two");
+                    }
                     break;
                 case 2:
+                    if (GameController.gameController.level_Three_Unlocked)
+                    {
+                        SceneManager.LoadScene("Level_Three");
+                    }
                     break;
                 case 3:
+                    if (GameController.gameController.level_Four_Unlocked)
+                    {
+                        SceneManager.LoadScene("Level_Three");
+                    }
                     break;
                 case 4:
                     levelSelect.SetActive(false);

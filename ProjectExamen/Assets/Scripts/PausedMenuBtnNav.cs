@@ -48,7 +48,7 @@ public class PausedMenuBtnNav : MonoBehaviour
             {
                 case 0:
                     Time.timeScale = 1;
-                    GameManager_Script.instance.menu.SetActive(false);
+                    LevelController.instance.menu.SetActive(false);
                     break;
                 case 1:
                     Restart();
