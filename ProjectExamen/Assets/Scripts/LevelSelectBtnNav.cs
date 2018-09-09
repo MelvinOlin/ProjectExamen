@@ -5,6 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class LevelSelectBtnNav : MonoBehaviour {
 
+    public GameObject mainMenu;
+    public GameObject levelSelect;
+
 	public int index = 0;
 	public int totalOptions = 3;
 	public float yOffset = 1;
@@ -44,8 +47,19 @@ public class LevelSelectBtnNav : MonoBehaviour {
 			switch (index)
 			{
 				case 0:
-					SceneManager.LoadScene("Scene_Test");
+					SceneManager.LoadScene("Level_One");
 					break;
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    levelSelect.SetActive(false);
+                    mainMenu.SetActive(true);
+                    break;
+
 				default:
 					break;
 			}

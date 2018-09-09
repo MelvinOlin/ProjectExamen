@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class LevelCompletedNav : MonoBehaviour
 {
+    public Scene nextScene;
 
     public int index = 0;
     public int totalOptions;
@@ -51,6 +52,9 @@ public class LevelCompletedNav : MonoBehaviour
                     GameManager_Script.instance.menu.SetActive(false);
                     break;
                 case 1:
+                    SceneManager.LoadScene(nextScene.name);
+                    break;
+                case 2:
                     SceneManager.LoadScene("Scene_MainMenu");
                     Time.timeScale = 1;
                     break;
