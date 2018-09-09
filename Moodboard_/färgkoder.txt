@@ -9,6 +9,9 @@ mörkrosa - f471a4
 ljusblå - 45b7ba
 mörkblå - 45b7ba
 
+ljusbrun - 8c6239
+mörkbrun - 603813
+
 vit - ffffff
 grå - eaeaea
 svart - 232323
