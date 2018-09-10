@@ -7,15 +7,18 @@ public class MainMenuBtnNav : MonoBehaviour {
 
     public GameObject mainMenu;
     public GameObject levelSelect;
+    public GameObject highScore;
 
     public int index = 0;
     public int totalOptions = 3;
     public float yOffset = 1;
 
+    
     // Use this for initialization
     void Start()
     {
         levelSelect.SetActive(false);
+        highScore.SetActive(false);
     }
 
     // Update is called once per frame
@@ -53,6 +56,8 @@ public class MainMenuBtnNav : MonoBehaviour {
                     mainMenu.SetActive(false);
                     break;
                 case 1:
+                    highScore.SetActive(true);
+                    mainMenu.SetActive(false);
                     break;
                 case 2:
                     Application.Quit();

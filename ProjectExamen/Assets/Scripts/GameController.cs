@@ -30,7 +30,7 @@ public class GameController : MonoBehaviour
             Destroy(gameObject);
         }
 
-        level_HighScore_Time = new float[4];
+        level_HighScore_Time = new float[5];
         level_Unlocked = new bool[5];
         Load();
         Debug.Log(Application.persistentDataPath);
@@ -101,6 +101,7 @@ public class GameController : MonoBehaviour
         {
             Debug.LogException(ex);
         }
+        Debug.Log("DELETED");
     }
 }
 
@@ -110,7 +111,7 @@ class PlayerData
 
     public bool[] level_Unlocked = new bool[5];
 
-    public float[] level_HighScore_Time = new float[4];
+    public float[] level_HighScore_Time = new float[5];
 
     public bool character_Two_Unlocked;
 
