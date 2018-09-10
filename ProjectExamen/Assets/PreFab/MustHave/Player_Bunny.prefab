@@ -71,7 +71,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1299946650137684}
   m_LocalRotation: {x: 0, y: 0.008726558, z: 0, w: 0.999962}
-  m_LocalPosition: {x: -3.377, y: -1.18, z: 0.0005}
+  m_LocalPosition: {x: -1.65, y: -1.18, z: 0.0005}
   m_LocalScale: {x: 1.488451, y: 1.6006, z: 1}
   m_Children:
   - {fileID: 4260152899339942}
@@ -258,6 +258,7 @@ MonoBehaviour:
   facingRight: 0
   wallJump: 0
   movedInAir: 0
+  died: 0
 --- !u!212 &212980163835563826
 SpriteRenderer:
   m_ObjectHideFlags: 1

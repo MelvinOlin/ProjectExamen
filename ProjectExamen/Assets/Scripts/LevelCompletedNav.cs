@@ -49,7 +49,7 @@ public class LevelCompletedNav : MonoBehaviour
             {
                 case 0:
                     Restart();
-                    LevelController.instance.menu.SetActive(false);
+                    LevelController.instance.pausedMenu.SetActive(false);
                     break;
                 case 1:
                     SceneManager.LoadScene(nextScene.name);

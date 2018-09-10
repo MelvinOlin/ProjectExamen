@@ -48,7 +48,7 @@ public class PausedMenuBtnNav : MonoBehaviour
             {
                 case 0:
                     Time.timeScale = 1;
-                    LevelController.instance.menu.SetActive(false);
+                    LevelController.instance.pausedMenu.SetActive(false);
                     break;
                 case 1:
                     Restart();

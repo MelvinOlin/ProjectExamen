@@ -31,6 +31,7 @@ public class Player : MonoBehaviour
     public bool facingRight = true;
     public bool wallJump;
     public bool movedInAir = false;
+    public bool died;
 
     // Use this for initialization
     void Start()

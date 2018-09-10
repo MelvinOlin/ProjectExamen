@@ -51,6 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: caadfb3dea23e4d459d88e1769b739ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  plr: {fileID: 0}
   player: {fileID: 0}
   menu: {fileID: 0}
   stats: {fileID: 0}
@@ -60,5 +61,6 @@ MonoBehaviour:
   babyCount: 0
   babyCountTaken: 0
   paused: 0
-  timeLeft: 5
+  timeLeft: 60
   startTime: 0
+  canEnterShip: 0

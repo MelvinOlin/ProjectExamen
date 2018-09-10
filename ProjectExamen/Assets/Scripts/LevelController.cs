@@ -11,7 +11,7 @@ public class LevelController : MonoBehaviour
 
     public GameObject plr;
     public Player player;
-    public GameObject menu;
+    public GameObject pausedMenu;
     public Canvas stats;
     public GameObject winScreen;
     public GameObject gameOverScreen;
@@ -36,7 +36,7 @@ public class LevelController : MonoBehaviour
 
     void Start()
     {
-        Debug.Log(Application.persistentDataPath);
+        Time.timeScale = 1;
         startTime = timeLeft;
         babiesTaken = stats.transform.Find("Taken").GetComponent<Text>();
         babiesTotal = stats.transform.Find("Total").GetComponent<Text>();
@@ -47,6 +47,10 @@ public class LevelController : MonoBehaviour
     {
         babiesTotal.text = babyCount.ToString();
         babiesTaken.text = babyCountTaken.ToString();
+        if (player.died)
+        {
+            GameOver();
+        }
 
         #region Timer
         if (!won)
@@ -98,13 +102,13 @@ public class LevelController : MonoBehaviour
     {
         if (!paused)
         {
-            menu.SetActive(true);
+            pausedMenu.SetActive(true);
             paused = true;
             Time.timeScale = 0;
         }
         else
         {
-            menu.SetActive(false);
+            pausedMenu.SetActive(false);
             paused = false;
             Time.timeScale = 1;
         }
@@ -129,12 +133,18 @@ public class LevelController : MonoBehaviour
         {
             GameController.gameController.level_Unlocked[level + 1] = true;
         }
+        double times = timeCompleted;
+        times = System.Math.Round(times, 2);
 
         Text time = winScreen.transform.Find("Time").GetComponent<Text>();
-        time.text = timeCompleted.ToString();
+        time.text = times.ToString();
 
         Text highScoreTIme = winScreen.transform.Find("HighScoreTime").GetComponent<Text>();
-        highScoreTIme.text = GameController.gameController.level_HighScore_Time[level].ToString();
+
+        double highScoreTimes = GameController.gameController.level_HighScore_Time[level];
+        highScoreTimes = Math.Round(highScoreTimes, 2);
+
+        highScoreTIme.text = highScoreTimes.ToString();
 
         GameController.gameController.Save();
         Destroy(plr);
