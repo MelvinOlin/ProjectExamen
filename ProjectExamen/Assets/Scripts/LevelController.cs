@@ -34,6 +34,7 @@ public class LevelController : MonoBehaviour
 
     void Start()
     {
+        Debug.Log(Application.persistentDataPath);
         startTime = timeLeft;
         babiesTaken = stats.transform.Find("Taken").GetComponent<Text>();
         babiesTotal = stats.transform.Find("Total").GetComponent<Text>();

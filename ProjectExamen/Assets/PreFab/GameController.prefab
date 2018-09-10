@@ -51,9 +51,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3794e699ce681194182cbcc1ecab0143, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level_One_Unlocked: 0
-  level_Two_Unlocked: 0
-  level_Three_Unlocked: 0
-  level_Four_Unlocked: 0
+  level_Unlocked: 
   level_HighScore_Time: []
   character_Two_Unlocked: 0
