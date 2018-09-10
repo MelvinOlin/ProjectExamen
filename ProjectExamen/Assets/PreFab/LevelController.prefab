@@ -60,5 +60,5 @@ MonoBehaviour:
   babyCount: 0
   babyCountTaken: 0
   paused: 0
-  timeLeft: 60
+  timeLeft: 5
   startTime: 0
