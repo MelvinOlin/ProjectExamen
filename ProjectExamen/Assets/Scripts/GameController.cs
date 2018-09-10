@@ -19,7 +19,6 @@ public class GameController : MonoBehaviour
     // Use this for initialization
     void Awake()
     {
-        Debug.Log(Application.persistentDataPath);
         if (gameController == null)
         {
             DontDestroyOnLoad(gameObject);
@@ -32,8 +31,14 @@ public class GameController : MonoBehaviour
 
         level_HighScore_Time = new float[5];
         level_Unlocked = new bool[5];
-        Load();
-        Debug.Log(Application.persistentDataPath);
+        try
+        {
+            Load();
+        }
+        catch
+        {
+            Debug.Log("LOAD FAILED");
+        }
     }
 
     private void Update()
