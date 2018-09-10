@@ -2133,6 +2133,50 @@ Prefab:
       objectReference: {fileID: 1932481703}
     - target: {fileID: 1200410712858434, guid: b4f8d15f123573b4b950137ebbeb4929, type: 2}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114914898279590062, guid: b4f8d15f123573b4b950137ebbeb4929,
+        type: 2}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 223499381414007194, guid: b4f8d15f123573b4b950137ebbeb4929,
+        type: 2}
+      propertyPath: m_PixelPerfect
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 212893430268153728, guid: b4f8d15f123573b4b950137ebbeb4929,
+        type: 2}
+      propertyPath: m_SortingOrder
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 223499381414007194, guid: b4f8d15f123573b4b950137ebbeb4929,
+        type: 2}
+      propertyPath: m_RenderMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224985201831671052, guid: b4f8d15f123573b4b950137ebbeb4929,
+        type: 2}
+      propertyPath: m_LocalScale.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224985201831671052, guid: b4f8d15f123573b4b950137ebbeb4929,
+        type: 2}
+      propertyPath: m_LocalScale.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224985201831671052, guid: b4f8d15f123573b4b950137ebbeb4929,
+        type: 2}
+      propertyPath: m_LocalScale.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1480407544430764, guid: b4f8d15f123573b4b950137ebbeb4929, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 212893430268153728, guid: b4f8d15f123573b4b950137ebbeb4929,
+        type: 2}
+      propertyPath: m_SpriteSortPoint
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

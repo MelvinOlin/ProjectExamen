@@ -119,7 +119,7 @@ public class LevelController : MonoBehaviour
     {
         float timeCompleted = startTime - timeLeft;
         
-        if (timeCompleted < GameController.gameController.level_HighScore_Time[level])
+        if (timeCompleted < GameController.gameController.level_HighScore_Time[level] ||GameController.gameController.level_HighScore_Time[level] <= 0)
         {
             GameController.gameController.level_HighScore_Time[level] = timeCompleted;
             GameController.gameController.Save();

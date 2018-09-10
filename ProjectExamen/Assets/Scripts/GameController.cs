@@ -8,10 +8,6 @@ using System.IO;
 public class GameController : MonoBehaviour
 {
 
-    //Veta vilka banor som är upplåsta
-    //Veta tiden på alla banor
-    //Låst upp sista gubben
-
     public static GameController gameController;
 
     public bool level_One_Unlocked = false;
@@ -20,11 +16,6 @@ public class GameController : MonoBehaviour
     public bool level_Four_Unlocked = false;
 
     public float[] level_HighScore_Time;
-
-    //public float level_One_Time;
-    //public float level_Two_Time;
-    //public float level_Three_Time;
-    //public float level_Four_Time;
 
     public bool character_Two_Unlocked = false;
 
@@ -42,6 +33,7 @@ public class GameController : MonoBehaviour
         }
         level_HighScore_Time = new float[4];
         Load();
+        Debug.Log(Application.persistentDataPath);
     }
 
     // Update is called once per frame
