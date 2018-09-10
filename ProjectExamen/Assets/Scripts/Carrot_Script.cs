@@ -10,7 +10,7 @@ public class Carrot_Script : MonoBehaviour
 
     private void Start()
     {
-        player = GameManager_Script.instance.player;
+        player = LevelController.instance.player;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

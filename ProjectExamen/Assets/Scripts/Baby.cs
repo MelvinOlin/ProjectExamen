@@ -7,14 +7,14 @@ public class Baby : MonoBehaviour {
     bool taken = false;
 	// Use this for initialization
 	void Start () {
-        GameManager_Script.instance.babyCount++;
+        LevelController.instance.babyCount++;
 	}
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (!taken)
         {
-        GameManager_Script.instance.babyCountTaken++;
+        LevelController.instance.babyCountTaken++;
         Destroy(gameObject);
             taken = true;
         }
