@@ -92,7 +92,6 @@ public class LevelController : MonoBehaviour
         }
     }
 
-
     private void Pause()
     {
         if (!paused)
@@ -118,11 +117,14 @@ public class LevelController : MonoBehaviour
     private void Win()
     {
         float timeCompleted = startTime - timeLeft;
-        
-        if (timeCompleted < GameController.gameController.level_HighScore_Time[level] ||GameController.gameController.level_HighScore_Time[level] <= 0)
+
+        if (timeCompleted < GameController.gameController.level_HighScore_Time[level] || GameController.gameController.level_HighScore_Time[level] <= 0)
         {
             GameController.gameController.level_HighScore_Time[level] = timeCompleted;
-            GameController.gameController.Save();
+        }
+        if (level < GameController.gameController.level_Unlocked.Length + 1)
+        {
+            GameController.gameController.level_Unlocked[level + 1] = true;
         }
 
         Text time = winScreen.transform.Find("Time").GetComponent<Text>();
@@ -131,6 +133,7 @@ public class LevelController : MonoBehaviour
         Text highScoreTIme = winScreen.transform.Find("HighScoreTime").GetComponent<Text>();
         highScoreTIme.text = GameController.gameController.level_HighScore_Time[level].ToString();
 
+        GameController.gameController.Save();
         winScreen.SetActive(true);
         Time.timeScale = 0;
         

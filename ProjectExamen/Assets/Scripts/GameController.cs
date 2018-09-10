@@ -10,10 +10,7 @@ public class GameController : MonoBehaviour
 
     public static GameController gameController;
 
-    public bool level_One_Unlocked = false;
-    public bool level_Two_Unlocked = false;
-    public bool level_Three_Unlocked = false;
-    public bool level_Four_Unlocked = false;
+    public bool[] level_Unlocked;
 
     public float[] level_HighScore_Time;
 
@@ -22,6 +19,7 @@ public class GameController : MonoBehaviour
     // Use this for initialization
     void Awake()
     {
+        Debug.Log(Application.persistentDataPath);
         if (gameController == null)
         {
             DontDestroyOnLoad(gameObject);
@@ -31,15 +29,19 @@ public class GameController : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
         level_HighScore_Time = new float[4];
+        level_Unlocked = new bool[5];
         Load();
         Debug.Log(Application.persistentDataPath);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            Delete();
+        }
     }
 
     public void Save()
@@ -49,11 +51,11 @@ public class GameController : MonoBehaviour
 
         var data = new PlayerData();
         #region VAR SAVE
-        data.level_One_Unlocked = level_One_Unlocked;
-        data.level_Two_Unlocked = level_Two_Unlocked;
-        data.level_Three_Unlocked = level_Three_Unlocked;
-        data.level_Four_Unlocked = level_Four_Unlocked;
 
+        for (int i = 0; i < level_Unlocked.Length; i++)
+        {
+            data.level_Unlocked[i] = level_Unlocked[i];
+        }
         for (int i = 0; i < level_HighScore_Time.Length; i++)
         {
             data.level_HighScore_Time[i] = level_HighScore_Time[i];
@@ -74,10 +76,10 @@ public class GameController : MonoBehaviour
             var file = File.Open(Application.persistentDataPath + "/playerInfo.dat", FileMode.Open);
             var data = (PlayerData)binaryFormatter.Deserialize(file);
             #region LOAD VAR
-            level_One_Unlocked = data.level_One_Unlocked;
-            level_Two_Unlocked = data.level_Two_Unlocked;
-            level_Three_Unlocked = data.level_Three_Unlocked;
-            level_Four_Unlocked = data.level_Four_Unlocked;
+            for (int i = 0; i < level_Unlocked.Length; i++)
+            {
+                level_Unlocked[i] = data.level_Unlocked[i];
+            }
 
             for (int i = 0; i < level_HighScore_Time.Length; i++)
             {
@@ -88,17 +90,25 @@ public class GameController : MonoBehaviour
             #endregion
         }
     }
+
+    public void Delete()
+    {
+        try
+        {
+            File.Delete(Application.persistentDataPath + "/playerInfo.dat");
+        }
+        catch (Exception ex)
+        {
+            Debug.LogException(ex);
+        }
+    }
 }
 
 [Serializable]
 class PlayerData
 {
-    public static GameController gameController;
 
-    public bool level_One_Unlocked;
-    public bool level_Two_Unlocked;
-    public bool level_Three_Unlocked;
-    public bool level_Four_Unlocked;
+    public bool[] level_Unlocked = new bool[5];
 
     public float[] level_HighScore_Time = new float[4];
 

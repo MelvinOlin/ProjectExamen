@@ -15,7 +15,7 @@ public class MainMenuBtnNav : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-
+        levelSelect.SetActive(false);
     }
 
     // Update is called once per frame

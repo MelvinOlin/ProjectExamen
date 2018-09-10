@@ -11,11 +11,6 @@ public class LevelSelectBtnNav : MonoBehaviour {
 	public int index = 0;
 	public int totalOptions = 3;
 	public float yOffset = 1;
-
-	// Use this for initialization
-	void Start () {
-		
-	}
 	
 	// Update is called once per frame
 	void Update () {
@@ -50,21 +45,21 @@ public class LevelSelectBtnNav : MonoBehaviour {
 					SceneManager.LoadScene("Level_One");
 					break;
                 case 1:
-                    if (GameController.gameController.level_Two_Unlocked)
+                    if (GameController.gameController.level_Unlocked[2])
                     {
                         SceneManager.LoadScene("Level_Two");
                     }
                     break;
                 case 2:
-                    if (GameController.gameController.level_Three_Unlocked)
+                    if (GameController.gameController.level_Unlocked[3])
                     {
                         SceneManager.LoadScene("Level_Three");
                     }
                     break;
                 case 3:
-                    if (GameController.gameController.level_Four_Unlocked)
+                    if (GameController.gameController.level_Unlocked[4])
                     {
-                        SceneManager.LoadScene("Level_Three");
+                        SceneManager.LoadScene("Level_Four");
                     }
                     break;
                 case 4:
