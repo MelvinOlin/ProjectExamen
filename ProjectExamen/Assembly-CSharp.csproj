@@ -64,6 +64,7 @@
     <Compile Include="Assets\HighScore.cs" />
     <Compile Include="Assets\HighScore_Controller.cs" />
     <Compile Include="Assets\LockedLevels.cs" />
+    <Compile Include="Assets\RymdRaket.cs" />
     <Compile Include="Assets\Scripts\Baby.cs" />
     <Compile Include="Assets\Scripts\CameraFollow.cs" />
     <Compile Include="Assets\Scripts\Carrot_Script.cs" />
