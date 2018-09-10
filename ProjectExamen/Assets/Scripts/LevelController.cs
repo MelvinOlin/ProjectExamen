@@ -9,6 +9,7 @@ public class LevelController : MonoBehaviour
 {
     public static LevelController instance;
 
+    public GameObject plr;
     public Player player;
     public GameObject menu;
     public Canvas stats;
@@ -25,6 +26,7 @@ public class LevelController : MonoBehaviour
     public float timeLeft;
     public float startTime;
     bool timesUp = false;
+    public bool canEnterShip;
     bool won;
 
     private void Awake()
@@ -76,8 +78,7 @@ public class LevelController : MonoBehaviour
 
         if (babyCount == babyCountTaken)
         {
-            won = true;
-            Win();
+            canEnterShip = true;
         }
 
         if (Input.GetKeyDown(KeyCode.R))
@@ -115,8 +116,9 @@ public class LevelController : MonoBehaviour
         gameOverScreen.SetActive(true);
     }
 
-    private void Win()
+    public void Win()
     {
+        Debug.Log("WIN");
         float timeCompleted = startTime - timeLeft;
 
         if (timeCompleted < GameController.gameController.level_HighScore_Time[level] || GameController.gameController.level_HighScore_Time[level] <= 0)
@@ -135,8 +137,18 @@ public class LevelController : MonoBehaviour
         highScoreTIme.text = GameController.gameController.level_HighScore_Time[level].ToString();
 
         GameController.gameController.Save();
+        Destroy(plr);
+        //winScreen.SetActive(true);
+        //Time.timeScale = 0;
+        StartCoroutine(Wait());
+    }
+
+    private IEnumerator Wait()
+    {
+        Debug.Log("START");
+        yield return new WaitForSeconds(1);
         winScreen.SetActive(true);
         Time.timeScale = 0;
-        
+        Debug.Log("STOP");
     }
 }
