@@ -34,6 +34,7 @@ public class Player : MonoBehaviour
     public bool movedInAir;          //TRUE if PLAYER MOVED in air
     public bool canControll;         //cant controll PLAYER for 0.1sec if WALLJUMP
     public bool canBlink;            //Checks if BLINK have Cooldown
+    public bool canWallJump;         //Cooldown for walljump to disable walljump spam
     public bool died;                //TRUE if PLAYER DIED
 
 
@@ -42,6 +43,7 @@ public class Player : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        canWallJump = true;
         canControll = true;
         canBlink = true;
         rb2d = GetComponent<Rigidbody2D>();
@@ -99,7 +101,7 @@ public class Player : MonoBehaviour
         }
 
 
-        #endregion//ASd 
+        #endregion
         #region WallSlide
 
         if (!grounded)
@@ -141,16 +143,19 @@ public class Player : MonoBehaviour
         {
             wallJump = true;
             isJumping = true;
+            jumped = true;
             GetCurrentAxis();
             directionAxis = directionAxis * -1;
             jumpTimeCounter = jumpTime;
 
             StartCoroutine(WallJumpTimer());
+            StartCoroutine(WallJumpCoolDown());
+
             rb2d.velocity = Vector3.zero;
             rb2d.AddForce(new Vector3(1000 * directionAxis, 1000, 0), ForceMode2D.Force);
         }
 
-        else if (Input.GetButton("Jump") && !wallSliding && !jumped)
+        else if (Input.GetButton("Jump") && !wallSliding && !jumped && canWallJump)
         {
             if (jumpTimeCounter > 0)
             {
@@ -268,5 +273,12 @@ public class Player : MonoBehaviour
         canBlink = false;
         yield return new WaitForSeconds(6f);
         canBlink = true;
+    }
+
+    IEnumerator WallJumpCoolDown()
+    {
+        canWallJump = false;
+        yield return new WaitForSeconds(0.6f);
+        canWallJump = true;
     }
 }
