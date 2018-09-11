@@ -48,7 +48,7 @@ public class GameOverNav : MonoBehaviour {
             {
                 case 0:
                     Restart();
-                    LevelController.instance.menu.SetActive(false);
+                    LevelController.instance.pausedMenu.SetActive(false);
                     break;
                 case 1:
                     SceneManager.LoadScene("Scene_MainMenu");

@@ -19,7 +19,6 @@ public class GameController : MonoBehaviour
     // Use this for initialization
     void Awake()
     {
-        Debug.Log(Application.persistentDataPath);
         if (gameController == null)
         {
             DontDestroyOnLoad(gameObject);
@@ -30,10 +29,16 @@ public class GameController : MonoBehaviour
             Destroy(gameObject);
         }
 
-        level_HighScore_Time = new float[4];
+        level_HighScore_Time = new float[5];
         level_Unlocked = new bool[5];
-        Load();
-        Debug.Log(Application.persistentDataPath);
+        try
+        {
+            Load();
+        }
+        catch
+        {
+            Debug.Log("LOAD FAILED");
+        }
     }
 
     private void Update()
@@ -101,6 +106,7 @@ public class GameController : MonoBehaviour
         {
             Debug.LogException(ex);
         }
+        Debug.Log("DELETED");
     }
 }
 
@@ -110,7 +116,7 @@ class PlayerData
 
     public bool[] level_Unlocked = new bool[5];
 
-    public float[] level_HighScore_Time = new float[4];
+    public float[] level_HighScore_Time = new float[5];
 
     public bool character_Two_Unlocked;
 
