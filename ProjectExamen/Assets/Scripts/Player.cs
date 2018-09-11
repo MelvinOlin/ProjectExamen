@@ -37,7 +37,6 @@ public class Player : MonoBehaviour
     public bool canWallJump;         //Cooldown for walljump to disable walljump spam
     public bool died;                //TRUE if PLAYER DIED
 
-
     public bool jumpButton;
 
     // Use this for initialization
