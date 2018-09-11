@@ -16,9 +16,8 @@ public class SoundEffect : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButton("Jump") && player.grounded)
+        if (Input.GetButton("Jump") && player.grounded || Input.GetButton("Jump") && player.wallJump)
         {
-            
             jump.Play();
         }
     }
