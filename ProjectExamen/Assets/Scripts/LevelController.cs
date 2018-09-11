@@ -50,7 +50,7 @@ public class LevelController : MonoBehaviour
         babiesTaken.text = babyCountTaken.ToString();
         if (!won && player.died || plr.transform.localPosition.y < minHeightPlayer)
         {
-            GameOver();
+            StartCoroutine(GameOver());
         }
 
         #region Timer
@@ -115,8 +115,9 @@ public class LevelController : MonoBehaviour
         }
     }
 
-    void GameOver()
+    IEnumerator GameOver()
     {
+        yield return new WaitForSeconds(2f);
         Time.timeScale = 0;
         gameOverScreen.SetActive(true);
     }

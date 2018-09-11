@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     public Transform wallCheckPoint;
     internal Rigidbody2D rb2d;
     private Animator animator;
+    private ParticleSystem particles;
 
     //Stats
     private float horizontal;        //Checks PLAYERS DIRECTION
@@ -36,23 +37,57 @@ public class Player : MonoBehaviour
     public bool canBlink;            //Checks if BLINK have Cooldown
     public bool canWallJump;         //Cooldown for walljump to disable walljump spam
     public bool died;                //TRUE if PLAYER DIED
+    private bool isMoving;
+    private bool canJump;
+    private bool deathParticlesEmitted;
+    private bool emitted;
 
     public bool jumpButton;
 
     // Use this for initialization
     void Start()
     {
+        canJump = true;
         canWallJump = true;
         canControll = true;
         canBlink = true;
         rb2d = GetComponent<Rigidbody2D>();
         animator = gameObject.GetComponent<Animator>();
+        particles = gameObject.GetComponentInChildren<ParticleSystem>();
         scaleX = transform.localScale.x;
         scaleY = transform.localScale.y;
     }
 
     void FixedUpdate()
     {
+        if (!died)
+        {
+            if (Input.GetAxisRaw("Horizontal") != 0 || !grounded)
+            {
+                if (!emitted)
+                {
+                    particles.Emit(1);
+                    emitted = true;
+                }
+                else
+                {
+                    emitted = false;
+                }
+            }
+        }
+        if (died && !deathParticlesEmitted)
+        {
+            var main = particles.main;
+            main.startSpeedMultiplier = 20;
+            particles.Emit(50);
+            var renderer = gameObject.GetComponent<Renderer>();
+            renderer.enabled = false;
+            //canControll = false;
+            //canJump = false;
+            rb2d.constraints = RigidbodyConstraints2D.FreezeAll;
+            deathParticlesEmitted = true;
+        }
+
         if (grounded || wallSliding)
         {
             rb2d.gravityScale = 4;
@@ -120,56 +155,59 @@ public class Player : MonoBehaviour
 
         #endregion
         #region Jump
-
-        if (jumpButtonTimer > 0)
+        if (canJump)
         {
-            jumpButtonTimer -= Time.deltaTime;
-        }
-        else
-        {
-            jumpButton = false;
-        }
 
-        if (jumpButton && grounded && !jumped)
-        {
-            isJumping = true;
-            jumpTimeCounter = jumpTime;
-            rb2d.velocity = Vector2.up * jumpPower;
-        }
-
-        else if (jumpButton && wallSliding)
-        {
-            wallJump = true;
-            isJumping = true;
-            jumped = true;
-            GetCurrentAxis();
-            directionAxis = directionAxis * -1;
-            jumpTimeCounter = jumpTime;
-
-            StartCoroutine(WallJumpTimer());
-            StartCoroutine(WallJumpCoolDown());
-
-            rb2d.velocity = Vector3.zero;
-            rb2d.AddForce(new Vector3(1000 * directionAxis, 1000, 0), ForceMode2D.Force);
-        }
-
-        else if (Input.GetButton("Jump") && !wallSliding && !jumped && canWallJump && !wallJump)
-        {
-            if (jumpTimeCounter > 0)
+            if (jumpButtonTimer > 0)
             {
-                rb2d.velocity = Vector2.up * jumpPower;
-                jumpTimeCounter -= Time.deltaTime;
+                jumpButtonTimer -= Time.deltaTime;
             }
             else
             {
+                jumpButton = false;
+            }
+
+            if (jumpButton && grounded && !jumped)
+            {
+                isJumping = true;
+                jumpTimeCounter = jumpTime;
+                rb2d.velocity = Vector2.up * jumpPower;
+            }
+
+            else if (jumpButton && wallSliding)
+            {
+                wallJump = true;
+                isJumping = true;
+                jumped = true;
+                GetCurrentAxis();
+                directionAxis = directionAxis * -1;
+                jumpTimeCounter = jumpTime;
+
+                StartCoroutine(WallJumpTimer());
+                StartCoroutine(WallJumpCoolDown());
+
+                rb2d.velocity = Vector3.zero;
+                rb2d.AddForce(new Vector3(1000 * directionAxis, 1000, 0), ForceMode2D.Force);
+            }
+
+            else if (Input.GetButton("Jump") && !wallSliding && !jumped && canWallJump && !wallJump)
+            {
+                if (jumpTimeCounter > 0)
+                {
+                    rb2d.velocity = Vector2.up * jumpPower;
+                    jumpTimeCounter -= Time.deltaTime;
+                }
+                else
+                {
+                    isJumping = false;
+                }
+            }
+            if (Input.GetButtonUp("Jump"))
+            {
+                jumped = true;
+                rb2d.gravityScale = 6;
                 isJumping = false;
             }
-        }
-        if (Input.GetButtonUp("Jump"))
-        {
-            jumped = true;
-            rb2d.gravityScale = 6;
-            isJumping = false;
         }
         #endregion
         #region Limiting Speed
@@ -222,7 +260,8 @@ public class Player : MonoBehaviour
 
     IEnumerator Blink()
     {
-        if (movedInAir)
+        particles.Emit(80);
+        if (movedInAir && !wallJump)
         {
             rb2d.gravityScale = 0;
             speed = speed * 35;
@@ -273,7 +312,7 @@ public class Player : MonoBehaviour
     IEnumerator BlinkCoolDown()
     {
         canBlink = false;
-        yield return new WaitForSeconds(6f);
+        yield return new WaitForSeconds(3f);
         canBlink = true;
     }
 
