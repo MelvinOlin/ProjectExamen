@@ -125,9 +125,8 @@ public class Player : MonoBehaviour
         if (jumpButtonTimer > 0)
         {
             jumpButtonTimer -= Time.deltaTime;
-
         }
-        if (jumpButtonTimer <= 0)
+        else
         {
             jumpButton = false;
         }
@@ -141,6 +140,7 @@ public class Player : MonoBehaviour
 
         else if (jumpButton && wallSliding)
         {
+            Debug.Log("WALLJUMP");
             wallJump = true;
             isJumping = true;
             jumped = true;
@@ -155,8 +155,9 @@ public class Player : MonoBehaviour
             rb2d.AddForce(new Vector3(1000 * directionAxis, 1000, 0), ForceMode2D.Force);
         }
 
-        else if (Input.GetButton("Jump") && !wallSliding && !jumped && canWallJump)
+        else if (Input.GetButton("Jump") && !wallSliding && !jumped && canWallJump && !wallJump)
         {
+            Debug.Log("BUG");
             if (jumpTimeCounter > 0)
             {
                 rb2d.velocity = Vector2.up * jumpPower;
@@ -216,6 +217,7 @@ public class Player : MonoBehaviour
         #endregion
     }
 
+
     void HandleWallSliding()
     {
         rb2d.velocity = new Vector2(rb2d.velocity.x, -1f);
@@ -250,13 +252,9 @@ public class Player : MonoBehaviour
         {
             returnValue = -1;
         }
-        if (returnValue > 0)
+        else if (returnValue > 0)
         {
             returnValue = 1;
-        }
-        if (wallJump)
-        {
-            //returnValue = returnValue * -1;
         }
         directionAxis = returnValue;
     }
@@ -268,6 +266,13 @@ public class Player : MonoBehaviour
         canControll = true;
     }
 
+    IEnumerator WallJumpCoolDown()
+    {
+        canWallJump = false;
+        yield return new WaitForSeconds(0.6f);
+        canWallJump = true;
+    }
+
     IEnumerator BlinkCoolDown()
     {
         canBlink = false;
@@ -275,10 +280,4 @@ public class Player : MonoBehaviour
         canBlink = true;
     }
 
-    IEnumerator WallJumpCoolDown()
-    {
-        canWallJump = false;
-        yield return new WaitForSeconds(0.6f);
-        canWallJump = true;
-    }
 }
