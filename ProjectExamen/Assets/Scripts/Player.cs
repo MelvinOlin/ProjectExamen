@@ -139,7 +139,6 @@ public class Player : MonoBehaviour
 
         else if (jumpButton && wallSliding)
         {
-            Debug.Log("WALLJUMP");
             wallJump = true;
             isJumping = true;
             jumped = true;
@@ -156,7 +155,6 @@ public class Player : MonoBehaviour
 
         else if (Input.GetButton("Jump") && !wallSliding && !jumped && canWallJump && !wallJump)
         {
-            Debug.Log("BUG");
             if (jumpTimeCounter > 0)
             {
                 rb2d.velocity = Vector2.up * jumpPower;
