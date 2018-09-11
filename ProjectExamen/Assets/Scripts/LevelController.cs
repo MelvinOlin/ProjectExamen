@@ -28,6 +28,7 @@ public class LevelController : MonoBehaviour
     bool timesUp = false;
     public bool canEnterShip;
     bool won;
+    public float minHeightPlayer;
 
     private void Awake()
     {
@@ -47,7 +48,7 @@ public class LevelController : MonoBehaviour
     {
         babiesTotal.text = babyCount.ToString();
         babiesTaken.text = babyCountTaken.ToString();
-        if (player.died)
+        if (player.died || plr.transform.localPosition.y < minHeightPlayer)
         {
             GameOver();
         }
