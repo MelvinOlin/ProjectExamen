@@ -60,21 +60,21 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (!died)
-        {
-            if (Input.GetAxisRaw("Horizontal") != 0 || !grounded)
-            {
-                if (!emitted)
-                {
-                    particles.Emit(1);
-                    emitted = true;
-                }
-                else
-                {
-                    emitted = false;
-                }
-            }
-        }
+        //if (!died)
+        //{
+        //    if (Input.GetAxisRaw("Horizontal") != 0 || !grounded)
+        //    {
+        //        if (!emitted)
+        //        {
+        //            particles.Emit(1);
+        //            emitted = true;
+        //        }
+        //        else
+        //        {
+        //            emitted = false;
+        //        }
+        //    }
+        //}
         if (died && !deathParticlesEmitted)
         {
             var main = particles.main;

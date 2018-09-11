@@ -13,7 +13,7 @@ public class LevelController : MonoBehaviour
     public Player player;
     public GameObject pausedMenu;
     public Canvas stats;
-    public GameObject winScreen;    
+    public GameObject winScreen;
     public GameObject gameOverScreen;
     Text babiesTaken;
     Text babiesTotal;
@@ -50,7 +50,7 @@ public class LevelController : MonoBehaviour
         babiesTaken.text = babyCountTaken.ToString();
         if (!won && player.died || plr.transform.localPosition.y < minHeightPlayer)
         {
-            StartCoroutine(GameOver());
+            StartCoroutine(GameOver(false));
         }
 
         #region Timer
@@ -58,7 +58,7 @@ public class LevelController : MonoBehaviour
         {
             timeLeft -= Time.deltaTime;
         }
-        double timeLeftRounded = System.Math.Round(timeLeft, 0);
+        double timeLeftRounded = Math.Round(timeLeft, 0);
 
         if (!timesUp)
         {
@@ -77,7 +77,8 @@ public class LevelController : MonoBehaviour
         {
             timer.text = "00";
             timesUp = true;
-            GameOver();
+            StartCoroutine(GameOver(true));
+
         }
         #endregion
 
@@ -115,11 +116,18 @@ public class LevelController : MonoBehaviour
         }
     }
 
-    IEnumerator GameOver()
+    IEnumerator GameOver(bool outOfTime)
     {
-        yield return new WaitForSeconds(2f);
-        Time.timeScale = 0;
-        gameOverScreen.SetActive(true);
+        if (!outOfTime)
+        {
+            yield return new WaitForSeconds(2f);
+        }
+        else
+        {
+            yield return new WaitForSeconds(0f);
+        }
+            Time.timeScale = 0;
+            gameOverScreen.SetActive(true);
     }
 
     public void Win()
