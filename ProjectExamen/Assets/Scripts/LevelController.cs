@@ -15,6 +15,7 @@ public class LevelController : MonoBehaviour
     public Canvas stats;
     public GameObject winScreen;
     public GameObject gameOverScreen;
+    public GameObject blink;
 
     public GameObject character_One;
     public GameObject character_Two;
@@ -65,6 +66,15 @@ public class LevelController : MonoBehaviour
     {
         babiesTotal.text = babyCount.ToString();
         babiesTaken.text = babyCountTaken.ToString();
+        if (player.canBlink)
+        {
+            blink.SetActive(true);
+        }
+        else
+        {
+            blink.SetActive(false);
+        }
+
         if (!won && player.died || plr.transform.localPosition.y < minHeightPlayer)
         {
             StartCoroutine(GameOver(false));
