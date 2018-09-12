@@ -21,6 +21,7 @@ public class MainMenuBtnNav : MonoBehaviour {
         characters.SetActive(false);
         levelSelect.SetActive(false);
         highScore.SetActive(false);
+        mainMenu.SetActive(false);
     }
 
     // Update is called once per frame
