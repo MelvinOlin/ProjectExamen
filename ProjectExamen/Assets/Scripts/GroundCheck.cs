@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GroundCheck : MonoBehaviour {
+public class GroundCheck : MonoBehaviour
+{
 
     private Player player;
 
@@ -13,17 +14,25 @@ public class GroundCheck : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        player.jumped = false;
-        player.isJumping = false;
-        player.GetCurrentAxis();
-        player.wallJump = false;
-        player.movedInAir = false;
-        player.directionAxis = 0;
-        player.grounded = true;
+        if (collision.tag == "Ground")
+        {
+
+            player.jumped = false;
+            player.isJumping = false;
+            player.GetCurrentAxis();
+            player.wallJump = false;
+            player.movedInAir = false;
+            player.directionAxis = 0;
+            player.grounded = true;
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
         player.grounded = false;
+        if (!player.isJumping)
+        {
+            player.GetCurrentAxis();
+        }
     }
 }

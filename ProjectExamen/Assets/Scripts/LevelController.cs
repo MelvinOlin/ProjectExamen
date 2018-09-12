@@ -15,6 +15,10 @@ public class LevelController : MonoBehaviour
     public Canvas stats;
     public GameObject winScreen;
     public GameObject gameOverScreen;
+
+    public GameObject character_One;
+    public GameObject character_Two;
+
     Text babiesTaken;
     Text babiesTotal;
     Text timer;
@@ -22,13 +26,15 @@ public class LevelController : MonoBehaviour
     public int level;
     public int babyCount;
     public int babyCountTaken;
-    public bool paused = false;
-    public float timeLeft;
+
     public float startTime;
-    bool timesUp = false;
-    public bool canEnterShip;
-    bool won;
+    public float timeLeft;
     public float minHeightPlayer;
+
+    public bool paused = false;
+    public bool canEnterShip;
+    bool timesUp = false;
+    bool won;
 
     private void Awake()
     {
@@ -37,6 +43,17 @@ public class LevelController : MonoBehaviour
 
     void Start()
     {
+        switch (GameController.gameController.selectedCharacter)
+        {
+            case 1:
+                character_Two.SetActive(false);
+                break;
+            case 2:
+                character_One.SetActive(false);
+                break;
+            default:
+                break;
+        }
         Time.timeScale = 1;
         startTime = timeLeft;
         babiesTaken = stats.transform.Find("Taken").GetComponent<Text>();
@@ -48,9 +65,9 @@ public class LevelController : MonoBehaviour
     {
         babiesTotal.text = babyCount.ToString();
         babiesTaken.text = babyCountTaken.ToString();
-        if (player.died || plr.transform.localPosition.y < minHeightPlayer)
+        if (!won && player.died || plr.transform.localPosition.y < minHeightPlayer)
         {
-            GameOver();
+            StartCoroutine(GameOver(false));
         }
 
         #region Timer
@@ -58,7 +75,7 @@ public class LevelController : MonoBehaviour
         {
             timeLeft -= Time.deltaTime;
         }
-        double timeLeftRounded = System.Math.Round(timeLeft, 0);
+        double timeLeftRounded = Math.Round(timeLeft, 0);
 
         if (!timesUp)
         {
@@ -77,7 +94,8 @@ public class LevelController : MonoBehaviour
         {
             timer.text = "00";
             timesUp = true;
-            GameOver();
+            StartCoroutine(GameOver(true));
+
         }
         #endregion
 
@@ -115,10 +133,18 @@ public class LevelController : MonoBehaviour
         }
     }
 
-    void GameOver()
+    IEnumerator GameOver(bool outOfTime)
     {
-        Time.timeScale = 0;
-        gameOverScreen.SetActive(true);
+        if (!outOfTime)
+        {
+            yield return new WaitForSeconds(2f);
+        }
+        else
+        {
+            yield return new WaitForSeconds(0f);
+        }
+            Time.timeScale = 0;
+            gameOverScreen.SetActive(true);
     }
 
     public void Win()
@@ -148,18 +174,14 @@ public class LevelController : MonoBehaviour
         highScoreTIme.text = highScoreTimes.ToString();
 
         GameController.gameController.Save();
-        Destroy(plr);
-        //winScreen.SetActive(true);
-        //Time.timeScale = 0;
+        plr.SetActive(false);
         StartCoroutine(Wait());
     }
 
     private IEnumerator Wait()
     {
-        Debug.Log("START");
         yield return new WaitForSeconds(1);
         winScreen.SetActive(true);
         Time.timeScale = 0;
-        Debug.Log("STOP");
     }
 }
