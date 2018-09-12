@@ -15,6 +15,10 @@ public class LevelController : MonoBehaviour
     public Canvas stats;
     public GameObject winScreen;
     public GameObject gameOverScreen;
+
+    public GameObject character_One;
+    public GameObject character_Two;
+
     Text babiesTaken;
     Text babiesTotal;
     Text timer;
@@ -22,13 +26,15 @@ public class LevelController : MonoBehaviour
     public int level;
     public int babyCount;
     public int babyCountTaken;
-    public bool paused = false;
-    public float timeLeft;
+
     public float startTime;
-    bool timesUp = false;
-    public bool canEnterShip;
-    bool won;
+    public float timeLeft;
     public float minHeightPlayer;
+
+    public bool paused = false;
+    public bool canEnterShip;
+    bool timesUp = false;
+    bool won;
 
     private void Awake()
     {
@@ -37,6 +43,17 @@ public class LevelController : MonoBehaviour
 
     void Start()
     {
+        switch (GameController.gameController.selectedCharacter)
+        {
+            case 1:
+                character_Two.SetActive(false);
+                break;
+            case 2:
+                character_One.SetActive(false);
+                break;
+            default:
+                break;
+        }
         Time.timeScale = 1;
         startTime = timeLeft;
         babiesTaken = stats.transform.Find("Taken").GetComponent<Text>();
