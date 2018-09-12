@@ -48,9 +48,9 @@ public class LevelController : MonoBehaviour
     {
         babiesTotal.text = babyCount.ToString();
         babiesTaken.text = babyCountTaken.ToString();
-        if (player.died || plr.transform.localPosition.y < minHeightPlayer)
+        if (!won && player.died || plr.transform.localPosition.y < minHeightPlayer)
         {
-            GameOver();
+            StartCoroutine(GameOver(false));
         }
 
         #region Timer
@@ -58,7 +58,7 @@ public class LevelController : MonoBehaviour
         {
             timeLeft -= Time.deltaTime;
         }
-        double timeLeftRounded = System.Math.Round(timeLeft, 0);
+        double timeLeftRounded = Math.Round(timeLeft, 0);
 
         if (!timesUp)
         {
@@ -77,7 +77,8 @@ public class LevelController : MonoBehaviour
         {
             timer.text = "00";
             timesUp = true;
-            GameOver();
+            StartCoroutine(GameOver(true));
+
         }
         #endregion
 
@@ -115,10 +116,18 @@ public class LevelController : MonoBehaviour
         }
     }
 
-    void GameOver()
+    IEnumerator GameOver(bool outOfTime)
     {
-        Time.timeScale = 0;
-        gameOverScreen.SetActive(true);
+        if (!outOfTime)
+        {
+            yield return new WaitForSeconds(2f);
+        }
+        else
+        {
+            yield return new WaitForSeconds(0f);
+        }
+            Time.timeScale = 0;
+            gameOverScreen.SetActive(true);
     }
 
     public void Win()
@@ -148,18 +157,14 @@ public class LevelController : MonoBehaviour
         highScoreTIme.text = highScoreTimes.ToString();
 
         GameController.gameController.Save();
-        Destroy(plr);
-        //winScreen.SetActive(true);
-        //Time.timeScale = 0;
+        plr.SetActive(false);
         StartCoroutine(Wait());
     }
 
     private IEnumerator Wait()
     {
-        Debug.Log("START");
         yield return new WaitForSeconds(1);
         winScreen.SetActive(true);
         Time.timeScale = 0;
-        Debug.Log("STOP");
     }
 }
