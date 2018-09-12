@@ -16,6 +16,8 @@ public class GameController : MonoBehaviour
 
     public bool character_Two_Unlocked = false;
 
+    public int selectedCharacter;
+
     // Use this for initialization
     void Awake()
     {
