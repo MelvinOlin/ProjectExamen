@@ -6,6 +6,7 @@ public class RymdRaket : MonoBehaviour
 {
     public LevelController levelController;
     private Rigidbody2D rb2d;
+    private bool launch;
     // Use this for initialization
     void Start()
     {
@@ -16,7 +17,10 @@ public class RymdRaket : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (launch)
+        {
+            rb2d.AddForce(Vector2.up * 30);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -25,8 +29,9 @@ public class RymdRaket : MonoBehaviour
         {
             levelController.Win();
             rb2d.constraints = RigidbodyConstraints2D.None;
-            rb2d.AddForce(Vector2.up * 1000);
-            rb2d.AddForce(Vector2.up * 500);
+            //rb2d.AddForce(Vector2.up * 300);
+            //rb2d.AddForce(Vector2.up * 500);
+            launch = true;
         }
     }
 }
