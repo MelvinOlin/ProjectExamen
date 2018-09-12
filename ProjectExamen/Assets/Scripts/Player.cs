@@ -12,39 +12,37 @@ public class Player : MonoBehaviour
     private ParticleSystem particles;
 
     //Stats
-    private float horizontal;        //Checks PLAYERS DIRECTION
-    private float jumpTimeCounter;   //COUNTS DOWN ftom jumpTime to 0
-    public float jumpTime;           //Jumptimer for controllable jump height
-    private float scaleX;            //For FLIPPING PLAYER
-    private float scaleY;            //For FLIPPING PLAYER
-    public float speed;              //Player speed
-    public float maxSpeed = 3;       //Limit player speed
-    public float jumpPower;          //Controlls player JUMP POWER
-    public float directionAxis;      //Show what way player was when jumping
-    public float currentAxis;        //Show what way player is facing
-    public float jumpButtonTimer;    //Get JUMP INPUT from UPDATE to FIXEDUPDATE
+    private float horizontal;             //Checks PLAYERS DIRECTION
+    private float jumpTimeCounter;        //COUNTS DOWN ftom jumpTime to 0
+    public float jumpTime;                //Jumptimer for controllable jump height
+    private float scaleX;                 //For FLIPPING PLAYER
+    private float scaleY;                 //For FLIPPING PLAYER
+    public float speed;                   //Player speed
+    public float maxSpeed = 3;            //Limit player speed
+    public float jumpPower;               //Controlls player JUMP POWER
+    public float directionAxis;           //Show what way player was when jumping
+    public float currentAxis;             //Show what way player is facing
+    public float jumpButtonTimer;         //Get JUMP INPUT from UPDATE to FIXEDUPDATE
 
     //Bool
-    public bool jumped;              //check if PLAYER have jumped to disable unintended DOUBLE JUMP
-    public bool isJumping;           //TRUE if PLAYER is JUMPING
-    public bool grounded;            //TRUE if PLAYER is GROUNDED
-    public bool wallSliding;         //TRUE if PLAYER is WALLSLIDING
-    public bool wallCheck;           //TRUE if PLAYER is close to WALL
-    public bool facingRight;         //self explanatory
-    public bool wallJump;            //TRUE if PLAYER JUMP from WALL
-    public bool movedInAir;          //TRUE if PLAYER MOVED in air
-    public bool canControll;         //cant controll PLAYER for 0.1sec if WALLJUMP
-    public bool canBlink;            //Checks if BLINK have Cooldown
-    public bool canWallJump;         //Cooldown for walljump to disable walljump spam
-    public bool died;                //TRUE if PLAYER DIED
-    private bool isMoving;
-    private bool canJump;
-    private bool deathParticlesEmitted;
-    private bool emitted;
+    public bool jumped;                   //check if PLAYER have jumped to disable unintended DOUBLE JUMP
+    public bool isJumping;                //TRUE if PLAYER is JUMPING
+    public bool grounded;                 //TRUE if PLAYER is GROUNDED
+    public bool wallSliding;              //TRUE if PLAYER is WALLSLIDING
+    public bool wallCheck;                //TRUE if PLAYER is close to WALL
+    public bool facingRight;              //self explanatory
+    public bool wallJump;                 //TRUE if PLAYER JUMP from WALL
+    public bool movedInAir;               //TRUE if PLAYER MOVED in air
+    public bool canControll;              //cant controll PLAYER for 0.1sec if WALLJUMP
+    public bool canBlink;                 //Checks if BLINK have Cooldown
+    public bool canWallJump;              //Cooldown for walljump to disable walljump spam
+    public bool died;                     //TRUE if PLAYER DIED
+    private bool isMoving;                //True if players RigidBody2D is moving
+    private bool canJump;                 //True if JUMPING is possible
+    private bool deathParticlesEmitted;   //Emitts when PLAYER DIES
+    private bool emitted;                 //EMITTS ONCE per TWO FRAMES
+    public bool jumpButton;               //TRUE if UPDATE catches JUMP INPUT
 
-    public bool jumpButton;
-
-    // Use this for initialization
     void Start()
     {
         canJump = true;
@@ -60,21 +58,21 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
-        //if (!died)
-        //{
-        //    if (Input.GetAxisRaw("Horizontal") != 0 || !grounded)
-        //    {
-        //        if (!emitted)
-        //        {
-        //            particles.Emit(1);
-        //            emitted = true;
-        //        }
-        //        else
-        //        {
-        //            emitted = false;
-        //        }
-        //    }
-        //}
+        if (!died)
+        {
+            if (Input.GetAxisRaw("Horizontal") != 0 || !grounded)
+            {
+                if (!emitted)
+                {
+                    particles.Emit(1);
+                    emitted = true;
+                }
+                else
+                {
+                    emitted = false;
+                }
+            }
+        }
         if (died && !deathParticlesEmitted)
         {
             var main = particles.main;
