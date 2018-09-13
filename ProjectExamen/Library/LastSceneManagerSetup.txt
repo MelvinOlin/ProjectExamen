@@ -1,12 +1,4 @@
 sceneSetups:
-<<<<<<< HEAD
-- path: Assets/Scenes/Levels/Level_One.unity
-=======
-<<<<<<< HEAD
-- path: Assets/Scenes/Levels/Level_Two.unity
-=======
-- path: C:/Users/Administrator/Desktop/ProjectExamen - Copy/ProjectExamen/Assets/Scenes/Levels/Level_Two.unity
->>>>>>> 96782cc4ba35d02121d0af46dd893ae368b4e6cd
->>>>>>> 44cc1f56ec497f52bae861cad0883f6d68afc280
+- path: Assets/Scenes/Scene_MainMenu.unity
   isLoaded: 1
   isActive: 1
