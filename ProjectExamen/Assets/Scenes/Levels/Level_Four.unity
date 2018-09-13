@@ -27272,7 +27272,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4037082565244992, guid: 65d2304232237bf4a9408445a598b5d3, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 3.8
+      value: 2.46
       objectReference: {fileID: 0}
     - target: {fileID: 4037082565244992, guid: 65d2304232237bf4a9408445a598b5d3, type: 2}
       propertyPath: m_LocalPosition.z
@@ -27298,6 +27298,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 114850204373179988, guid: 65d2304232237bf4a9408445a598b5d3,
+        type: 2}
+      propertyPath: dieClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 1095d5bbd90a6cd4cbe314f1f91ca2e2, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 65d2304232237bf4a9408445a598b5d3, type: 2}
   m_IsPrefabAsset: 0
@@ -32263,6 +32268,11 @@ Prefab:
       propertyPath: blink
       value: 
       objectReference: {fileID: 703425160}
+    - target: {fileID: 114124839025903918, guid: 13c8704e195692e4e83f9e3e6207f7b7,
+        type: 2}
+      propertyPath: minHeightPlayer
+      value: -16.43
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 13c8704e195692e4e83f9e3e6207f7b7, type: 2}
   m_IsPrefabAsset: 0

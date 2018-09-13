@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 114124839025903918}
   m_Layer: 0
   m_Name: LevelController
-  m_TagString: Untagged
+  m_TagString: LevelController
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -53,14 +53,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   plr: {fileID: 0}
   player: {fileID: 0}
-  menu: {fileID: 0}
+  pausedMenu: {fileID: 0}
   stats: {fileID: 0}
   winScreen: {fileID: 0}
   gameOverScreen: {fileID: 0}
+  blink: {fileID: 0}
+  character_One: {fileID: 0}
+  character_Two: {fileID: 0}
   level: 1
   babyCount: 0
   babyCountTaken: 0
-  paused: 0
-  timeLeft: 60
   startTime: 0
+  timeLeft: 450
+  minHeightPlayer: 2.6
+  paused: 0
   canEnterShip: 0

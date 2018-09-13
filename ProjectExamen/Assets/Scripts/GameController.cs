@@ -7,17 +7,13 @@ using System.IO;
 
 public class GameController : MonoBehaviour
 {
-
     public static GameController gameController;
+    public SoundEffect sounds;
 
     public bool[] level_Unlocked;
-
     public float[] level_HighScore_Time;
-
     public bool character_Two_Unlocked = false;
-
     public int selectedCharacter;
-
     public bool showedIntro;
 
     // Use this for initialization
@@ -51,6 +47,11 @@ public class GameController : MonoBehaviour
         {
             Delete();
         }
+    }
+    private void Start()
+    {
+        sounds = gameObject.GetComponent<SoundEffect>();
+        sounds.PlayLevelMusic();
     }
 
     public void Save()

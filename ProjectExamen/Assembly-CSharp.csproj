@@ -81,9 +81,9 @@
     <Compile Include="Assets\Scripts\PausedMenuController.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\RymdRaket.cs" />
+    <Compile Include="Assets\Scripts\Sound\SoundEffect.cs" />
     <Compile Include="Assets\Scripts\SoundEffects.cs" />
     <Compile Include="Assets\Scripts\StartIntro.cs" />
-    <Compile Include="Assets\SoundEffect.cs" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>C:/Users/Administrator/Desktop/ProjectExamen/ProjectExamen/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>

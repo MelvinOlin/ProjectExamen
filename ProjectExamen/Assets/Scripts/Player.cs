@@ -11,6 +11,16 @@ public class Player : MonoBehaviour
     private Animator animator;
     private ParticleSystem particles;
 
+    public AudioClip jumpClip;
+    public AudioClip collectDiamonClip;
+    public AudioClip boostClip;
+    public AudioClip dieClip;
+
+    private AudioSource jumpSource;
+    private AudioSource collectDiamondSource;
+    private AudioSource boostSource;
+    private AudioSource dieSource;
+
     //Stats
     private float horizontal;             //Checks PLAYERS DIRECTION
     private float jumpTimeCounter;        //COUNTS DOWN ftom jumpTime to 0
@@ -43,21 +53,34 @@ public class Player : MonoBehaviour
     private bool emitted;                 //EMITTS ONCE per TWO FRAMES
     public bool jumpButton;               //TRUE if UPDATE catches JUMP INPUT
 
+    private void Awake()
+    {
+        jumpSource = AddAudio(jumpClip, false, true, 0.2f);
+        collectDiamondSource = AddAudio(collectDiamonClip, false, true, 0.4f);
+        boostSource = AddAudio(boostClip, false, true, 0.2f);
+        dieSource = AddAudio(dieClip, false, true, 0.2f);
+
+    }
+
     void Start()
     {
         canJump = true;
         canWallJump = true;
         canControll = true;
         canBlink = true;
+
         rb2d = GetComponent<Rigidbody2D>();
         animator = gameObject.GetComponent<Animator>();
         particles = gameObject.GetComponentInChildren<ParticleSystem>();
+
         scaleX = transform.localScale.x;
         scaleY = transform.localScale.y;
     }
 
     void FixedUpdate()
     {
+        SoundPlayer();
+
         if (!died)
         {
             if (Input.GetAxisRaw("Horizontal") != 0 || !grounded)
@@ -75,6 +98,7 @@ public class Player : MonoBehaviour
         }
         if (died && !deathParticlesEmitted)
         {
+            dieSource.Play();
             var main = particles.main;
             main.startSpeedMultiplier = 20;
             particles.Emit(50);
@@ -235,6 +259,7 @@ public class Player : MonoBehaviour
 
         if (Input.GetButtonDown("Jump"))
         {
+            PlayJumpSound();
             GetCurrentAxis();
             jumpButtonTimer = 0.05f;
             jumpButton = true;
@@ -244,6 +269,7 @@ public class Player : MonoBehaviour
         {
             if (canBlink)
             {
+                boostSource.Play();
                 StartCoroutine(Blink());
             }
         }
@@ -267,7 +293,7 @@ public class Player : MonoBehaviour
             rb2d.gravityScale = 4;
             speed = speed / 35;
         }
-        
+
         else
         {
             rb2d.gravityScale = 0;
@@ -312,6 +338,33 @@ public class Player : MonoBehaviour
         canBlink = false;
         yield return new WaitForSeconds(3f);
         canBlink = true;
+    }
+
+    private void SoundPlayer()
+    {
+        if (Input.GetButtonDown("Jump"))
+        {
+            PlayJumpSound();
+        }
+    }
+
+    AudioSource AddAudio(AudioClip audioClip, bool loop, bool playAwake, float vol)
+    {
+        var newAudio = gameObject.AddComponent<AudioSource>();
+        newAudio.clip = audioClip;
+        newAudio.loop = loop;
+        newAudio.playOnAwake = playAwake;
+        newAudio.volume = vol;
+        return newAudio;
+    }
+    public void PlayJumpSound()
+    {
+        jumpSource.Play();
+    }
+
+    public void PlayCollectDiamondSound()
+    {
+        collectDiamondSource.Play();
     }
 
 }

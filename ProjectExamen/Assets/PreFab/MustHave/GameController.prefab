@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4593947120236142}
   - component: {fileID: 114435906910630398}
+  - component: {fileID: 114162530882001524}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -40,6 +41,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114162530882001524
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1762981926250170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d644e5bb8dda3a468b4c42d8c8985ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jumpClip: {fileID: 8300000, guid: 5c0c80beec551fe4b9fd8661243e915b, type: 3}
+  musicClip: {fileID: 8300000, guid: 7f4862a04364ee1429174b269f874aa9, type: 3}
 --- !u!114 &114435906910630398
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -54,3 +68,5 @@ MonoBehaviour:
   level_Unlocked: 
   level_HighScore_Time: []
   character_Two_Unlocked: 0
+  selectedCharacter: 0
+  showedIntro: 0
