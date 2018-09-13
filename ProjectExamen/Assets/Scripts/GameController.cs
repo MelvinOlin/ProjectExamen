@@ -18,6 +18,8 @@ public class GameController : MonoBehaviour
 
     public int selectedCharacter;
 
+    public bool showedIntro;
+
     // Use this for initialization
     void Awake()
     {

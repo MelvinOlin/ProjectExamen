@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraFollow : MonoBehaviour
+public class CameraPathScript : MonoBehaviour
 {
 
     private Vector2 velocity;
-    public GameObject player;
-
+    public Player player;
 
     public float smoothTimeY;
     public float smoothTimeX;
@@ -20,25 +19,25 @@ public class CameraFollow : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
 
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        if (transform.position.x - player.transform.position.x > 32)
+        {
+            player.died = true;
+        }
     }
 
     private void FixedUpdate()
     {
-        if (player != null)
+        if (transform.position.x < 323.5)
         {
+            float posX = Mathf.SmoothDamp(transform.position.x, transform.position.x + 0.13f, ref velocity.x, smoothTimeX);
 
-            float posX = Mathf.SmoothDamp(transform.position.x, player.transform.position.x, ref velocity.x, smoothTimeX);
-            float posY = Mathf.SmoothDamp(transform.position.y, player.transform.position.y, ref velocity.y, smoothTimeY);
-
-            transform.position = new Vector3(posX, posY +0.8f, transform.position.z);
+            transform.position = new Vector3(posX, transform.position.y, transform.position.z);
 
             if (bounds)
             {
@@ -47,5 +46,6 @@ public class CameraFollow : MonoBehaviour
                     Mathf.Clamp(transform.position.z, minCameraPos.z, maxCameraPos.z));
             }
         }
+
     }
 }

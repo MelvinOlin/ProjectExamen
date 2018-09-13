@@ -159,7 +159,6 @@ public class LevelController : MonoBehaviour
 
     public void Win()
     {
-        Debug.Log("WIN");
         float timeCompleted = startTime - timeLeft;
 
         if (timeCompleted < GameController.gameController.level_HighScore_Time[level] || GameController.gameController.level_HighScore_Time[level] <= 0)
