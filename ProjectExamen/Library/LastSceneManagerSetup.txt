@@ -1,1 +1,8 @@
+<<<<<<< HEAD
 sceneSetups: []
+=======
+sceneSetups:
+- path: Assets/Scenes/Levels/Level_Four.unity
+  isLoaded: 1
+  isActive: 1
+>>>>>>> f3ad4d5cf97450697a962ff8c60c26cfdb615bd5
