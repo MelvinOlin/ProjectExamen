@@ -16,3 +16,8 @@ vit - ffffff
 grå - eaeaea
 svart - 232323
 
+
+
+vill höra lite mer om storyn, vad spelet heter.. vad spelet går ut på.. 
+gå in lite mer på koden som är i pp
+varför valde vi att alla satt med allt?
