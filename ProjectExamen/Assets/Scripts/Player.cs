@@ -267,7 +267,7 @@ public class Player : MonoBehaviour
             rb2d.gravityScale = 4;
             speed = speed / 35;
         }
-
+        
         else
         {
             rb2d.gravityScale = 0;

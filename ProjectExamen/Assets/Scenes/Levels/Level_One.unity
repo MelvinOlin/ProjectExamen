@@ -2019,32 +2019,9 @@ Prefab:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1510918929}
-    - target: {fileID: 223999639481865240, guid: b7a8108e90880794594907976e49885b,
-        type: 2}
-      propertyPath: m_SortingOrder
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 212291670147361530, guid: b7a8108e90880794594907976e49885b,
-        type: 2}
-      propertyPath: m_SortingOrder
-      value: 15
-      objectReference: {fileID: 0}
     - target: {fileID: 1013591807490802, guid: b7a8108e90880794594907976e49885b, type: 2}
       propertyPath: m_IsActive
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4573219906788388, guid: b7a8108e90880794594907976e49885b, type: 2}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4665852903805398, guid: b7a8108e90880794594907976e49885b, type: 2}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 212407588328235290, guid: b7a8108e90880794594907976e49885b,
-        type: 2}
-      propertyPath: m_SortingOrder
-      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b7a8108e90880794594907976e49885b, type: 2}
@@ -7234,7 +7211,7 @@ Prefab:
     - target: {fileID: 114124839025903918, guid: 13c8704e195692e4e83f9e3e6207f7b7,
         type: 2}
       propertyPath: timeLeft
-      value: 45
+      value: 450
       objectReference: {fileID: 0}
     - target: {fileID: 114124839025903918, guid: 13c8704e195692e4e83f9e3e6207f7b7,
         type: 2}
@@ -9295,6 +9272,10 @@ Prefab:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1510918929}
+    - target: {fileID: 1896433479261266, guid: 3d677b444d5ec854eb08678f5c8b8080, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3d677b444d5ec854eb08678f5c8b8080, type: 2}
   m_IsPrefabAsset: 0
@@ -11420,6 +11401,11 @@ Prefab:
     - target: {fileID: 1200410712858434, guid: b4f8d15f123573b4b950137ebbeb4929, type: 2}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 223499381414007194, guid: b4f8d15f123573b4b950137ebbeb4929,
+        type: 2}
+      propertyPath: m_PlaneDistance
+      value: 1000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b4f8d15f123573b4b950137ebbeb4929, type: 2}
